@@ -35,7 +35,7 @@ export default function Dashboard(props) {
                         >
                             <div className='flex flex-col'>
                                 <div className="mb-4">
-                                    <label for='title'>Title</label>
+                                    <label htmlFor='title'>Title</label>
                                     <input
                                         type="text"
                                         name="title"
@@ -49,7 +49,7 @@ export default function Dashboard(props) {
                                     </span>
                                 </div>
                                 <div className="mb-0">
-                                    <label for="body">Body</label>
+                                    <label htmlFor="body">Body</label>
                                     <textarea
                                         type='text'
                                         className="w-full rounded"
