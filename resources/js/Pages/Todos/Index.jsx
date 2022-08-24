@@ -4,11 +4,11 @@ import { Inertia } from "@inertiajs/inertia";
 import { Head, usePage, Link } from '@inertiajs/inertia-react';
 
 export default function Dashboard(props) {
-  const { posts } = usePage().props
+  const { todos } = usePage().props
 
   function destroy(e) {
     if (confirm("Are you sure you want to delete this user?")) {
-      Inertia.delete(route("posts.destroy", e.currentTarget.id));
+      Inertia.delete(route("todos.destroy", e.currentTarget.id));
     }
   }
 
@@ -16,9 +16,9 @@ export default function Dashboard(props) {
     <Authenticated
       auth={props.auth}
       errors={props.errors}
-      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Posts</h2>}
+      header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Todos</h2>}
     >
-      <Head title="Posts" />
+      <Head title="Todos" />
 
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -28,9 +28,9 @@ export default function Dashboard(props) {
               <div className="flex items-center justify-between mb-6">
                 <Link
                   className="px-6 py-2 text-white bg-green-500 rounded-md focus:outline-none"
-                  href={route("posts.create")}
+                  href={route("todos.create")}
                 >
-                  Create Post
+                  Create Todo
                 </Link>
               </div>
 
@@ -38,22 +38,25 @@ export default function Dashboard(props) {
                 <thead>
                   <tr className="bg-gray-100">
                     <th className="px-4 py-2 w-20">No.</th>
-                    <th className="px-4 py-2">Title</th>
-                    <th className="px-4 py-2">Body</th>
-                    <th className="px-4 py-2">Action</th>
+                    <th className="px-4 py-2">Task</th>
+                    <th className="px-4 py-2">Description</th>
+                    <th className="px-4 py-2">Status</th>
+                    <th className="px-4 py-2">User</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {posts.map(({ id, title, body }) => (
+                  {todos.map(({ id, task, description, status, user }) => (
                     <tr key={id}>
                       <td className="border px-4 py-2">{id}</td>
-                      <td className="border px-4 py-2">{title}</td>
-                      <td className="border px-4 py-2">{body}</td>
+                      <td className="border px-4 py-2">{task}</td>
+                      <td className="border px-4 py-2">{description}</td>
+                      <td className="border px-4 py-2">{status}</td>
+                      <td className="border px-4 py-2">{user}</td>
                       <td className="border px-4 py-2">
                         <Link
                           tabIndex="1"
                           className="px-4 py-2 text-sm text-white bg-blue-500 rounded"
-                          href={route("posts.edit", id)}
+                          href={route("todos.edit", id)}
                         >
                           Edit
                         </Link>
@@ -70,7 +73,7 @@ export default function Dashboard(props) {
                     </tr>
                   ))}
 
-                  {posts.length === 0 && (
+                  {todos.length === 0 && (
                     <tr>
                       <td
                         className="px-6 py-4 border-t"

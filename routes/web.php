@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\TodoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +15,7 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::resource('posts', PostController::class);
+Route::resource('todos', TodoController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

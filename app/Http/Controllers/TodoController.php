@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
     
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\Post;
+use App\Models\Todo;
 use Illuminate\Support\Facades\Validator;
    
-class PostController extends Controller
+class TodoController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -16,8 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return Inertia::render('Posts/Index', ['posts' => $posts]);
+        $todos = Todo::all();
+        return Inertia::render('Todos/Index', ['todos' => $todos]);
     }
   
     /**
@@ -27,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Posts/Create');
+        return Inertia::render('Todos/Create');
     }
     
     /**
@@ -38,13 +38,15 @@ class PostController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'title' => ['required'],
-            'body' => ['required'],
+            'task' => ['required'],
+            'description' => ['required'],
+            'status'=> ['required'],
+            'user'=> ['required'],
         ])->validate();
    
-        Post::create($request->all());
+        Todo::create($request->all());
     
-        return redirect()->route('posts.index');
+        return redirect()->route('todos.index');
     }
   
     /**
@@ -52,10 +54,10 @@ class PostController extends Controller
      *
      * @return response()
      */
-    public function edit(Post $post)
+    public function edit(Todo $todo)
     {
-        return Inertia::render('Posts/Edit', [
-            'post' => $post
+        return Inertia::render('Todos/Edit', [
+            'todo' => $todo
         ]);
     }
     
@@ -67,12 +69,14 @@ class PostController extends Controller
     public function update($id, Request $request)
     {
         Validator::make($request->all(), [
-            'title' => ['required'],
-            'body' => ['required'],
+            'task' => ['required'],
+            'description' => ['required'],
+            'status'=> ['required'],
+            'user'=> ['required'],
         ])->validate();
     
-        Post::find($id)->update($request->all());
-        return redirect()->route('posts.index');
+        Todo::find($id)->update($request->all());
+        return redirect()->route('todos.index');
     }
     
     /**
@@ -82,7 +86,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        Post::find($id)->delete();
-        return redirect()->route('posts.index');
+        Todo::find($id)->delete();
+        return redirect()->route('todos.index');
     }
 }
