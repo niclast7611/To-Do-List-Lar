@@ -16,4 +16,8 @@ class Todo extends Model
     protected $fillable = [
         'task', 'description', 'status', 'user'
     ];
+
+    public function getTodoByTask($task) {
+        return $this->where('task',$task)->first();
+    }
 }
